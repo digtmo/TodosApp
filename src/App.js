@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { TodoCounter } from './TodoCounter';
+import { TodoSearch } from './TodoSearch';
+import { TodoList } from './TodoList';
+import { TodoItem } from './TodoItem';
+import { CreateTodoButton } from './CreateTodoButton';
 
-function App() {
+const todos = [  /// datos que serán enviados mediante props
+  {text: 'Ordenar', completed: false},
+  {text: 'Barrer', completed: false},
+  {text: 'Trapear', completed: false},
+]
+
+function App(props) { 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      
+      <TodoCounter/> 
+        <TodoSearch/> 
+        <input placeholder='Completa acá'/>
+
+       <TodoList>
+          {todos.map(todo => (
+            <TodoItem key={todo.text} text={todo.text}/> // Este props se está enviando al componente TodoItem y está mostrando todo el array "todos". Key es para identificar 
+          ))}
+        </TodoList>
+
+        <CreateTodoButton/>
+        {props.children}
+    </React.Fragment>
   );
 }
 
